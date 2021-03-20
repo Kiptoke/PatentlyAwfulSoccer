@@ -21,7 +21,7 @@ func get_input():
 	if Input.is_action_just_pressed("shoot") and bullet_wait == false:
 		shoot()
 
-func _process(delta):
+func _process(_delta):
 	var prog = get_node("ProgressBar")
 	if bullet_wait:
 		prog.visible = true
@@ -31,7 +31,7 @@ func _process(delta):
 			bullet_wait = false
 			prog.value = 0
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)
 
