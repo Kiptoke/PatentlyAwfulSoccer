@@ -1,0 +1,228 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Graphics/icon.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Gun.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Ball.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24, 24 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.733333, 0.164706, 0.164706, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=7]
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="PhysicsMaterial" id=5]
+friction = 100.0
+rough = true
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 8, 76.1802 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 16, 112 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 512, 16 )
+
+[node name="Field" type="Node2D"]
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 192, 288 )
+collision_layer = 2
+collision_mask = 15
+script = ExtResource( 2 )
+speed = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Player"]
+position = Vector2( -4.94719e-06, 1.2517e-05 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 1 )
+
+[node name="Gun" type="Sprite" parent="Player"]
+scale = Vector2( 0.625, 0.25 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 50, -32 )
+script = ExtResource( 3 )
+
+[node name="GunFront" type="Position2D" parent="Player/Gun"]
+position = Vector2( 115.2, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="Player"]
+visible = false
+margin_left = -24.0
+margin_top = -40.0
+margin_right = 24.0
+margin_bottom = -32.0
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 7 )
+rounded = true
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ball" type="RigidBody2D" parent="."]
+position = Vector2( 512, 288 )
+collision_layer = 8
+collision_mask = 7
+physics_material_override = SubResource( 5 )
+gravity_scale = 0.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Ball"]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource( 2 )
+
+[node name="LeftGoal" type="Area2D" parent="."]
+position = Vector2( 8, 304 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftGoal"]
+position = Vector2( 0, -3.81982 )
+shape = SubResource( 8 )
+
+[node name="RightGoal" type="Area2D" parent="."]
+position = Vector2( 1016, 304 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightGoal"]
+position = Vector2( 0, -3.81982 )
+shape = SubResource( 8 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls" groups=[
+"Walls",
+]]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Walls/LeftWall"]
+position = Vector2( 16, 112 )
+scale = Vector2( 0.5, 3.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+position = Vector2( 16, 112 )
+shape = SubResource( 3 )
+
+[node name="LeftWall2" type="StaticBody2D" parent="Walls" groups=[
+"Walls",
+]]
+position = Vector2( 0, 344 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Walls/LeftWall2"]
+position = Vector2( 16, 144 )
+scale = Vector2( 0.5, 3.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall2"]
+position = Vector2( 16, 144 )
+shape = SubResource( 3 )
+
+[node name="RightWall" type="StaticBody2D" parent="Walls" groups=[
+"Walls",
+]]
+position = Vector2( 992, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Walls/RightWall"]
+position = Vector2( 16, 112 )
+scale = Vector2( 0.5, 3.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+position = Vector2( 16, 112 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="RightWall2" type="StaticBody2D" parent="Walls" groups=[
+"Walls",
+]]
+position = Vector2( 992, 344 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Walls/RightWall2"]
+position = Vector2( 16, 144 )
+scale = Vector2( 0.5, 3.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall2"]
+position = Vector2( 16, 144 )
+shape = SubResource( 3 )
+
+[node name="TopWall" type="StaticBody2D" parent="Walls" groups=[
+"Walls",
+]]
+position = Vector2( 40, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Walls/TopWall"]
+position = Vector2( 472, 8 )
+scale = Vector2( 16, 0.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
+position = Vector2( 472, 8 )
+shape = SubResource( 4 )
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls" groups=[
+"Walls",
+]]
+position = Vector2( 40, 576 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Walls/BottomWall"]
+position = Vector2( 472, 8 )
+scale = Vector2( 16, 0.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+position = Vector2( 472, 8 )
+shape = SubResource( 4 )
+[connection signal="body_entered" from="LeftGoal" to="Ball" method="_on_LeftGoal_body_entered"]
+[connection signal="body_entered" from="RightGoal" to="Ball" method="_on_RightGoal_body_entered"]
