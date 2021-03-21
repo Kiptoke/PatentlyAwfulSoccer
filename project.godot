@@ -19,6 +19,14 @@ config/name="PassSoccer"
 run/main_scene="res://Scenes/Field.tscn"
 config/icon="res://Graphics/icon.png"
 
+[autoload]
+
+Globals="*res://Scripts/Globals.gd"
+
+[display]
+
+window/dpi/allow_hidpi=true
+
 [input]
 
 left={
