@@ -39,4 +39,5 @@ func shoot():
 	var bul = Bullet.instance()
 	bul.start(get_node("Gun/GunFront").global_position,$Gun.rotation)
 	get_parent().add_child(bul)
+	$Gun/AudioStreamPlayer2D.play()
 	bullet_wait = true

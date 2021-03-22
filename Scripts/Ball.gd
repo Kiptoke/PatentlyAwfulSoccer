@@ -35,3 +35,10 @@ func end_game():
 	if Globals.blue_score >= win_score or Globals.red_score >= win_score:
 		get_node("../GameEndPanel").visible = true
 		get_tree().paused = true
+
+
+func _on_Ball_body_entered(body):
+	var name = body.name
+	$AudioStreamPlayer2D.play()
+	if name == "Bullet":
+		body.queue_free()
